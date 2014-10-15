@@ -1,0 +1,95 @@
+#!/bin/bash
+# Script instalare si configurare simpla pentru conky
+#Pasul 1 - instalare conky
+echo -ne "Acest script va instala conky. Pe parcursul lui vi se va cere parola de root.
+Va rugam sa o introduceti de cand va fi nevoie.
+ATENTIE! LA INTRODUCEREA PAROLEI CARACTERELE TASTATE NU VOR FI VIZIBILE! "
+echo
+echo -ne "Prima data actualizam sursele de programe. Sunteti de acord? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+sudo apt-get update
+echo -ne
+echo-ne "Acum vom instala conky. Sunteti de acord? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+sudo apt-get install conky-all
+echo -ne
+#Pasul 2 - instalare lm-sensors si hddtemp
+echo -ne "Acum vom instala pachetele <lm-sensors> si <hddtemp>
+necesare pentru afisarea diferitelor parametri de sistem.
+Sunteti de acord? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+sudo apt-get install lm-sensors hddtemp
+echo -ne
+#Pasul 3 - configurare sensors
+echo -ne "Acum vom configura programul <lm-sensors> care afiseaza parametri de sistem.
+Este recomandat sa citi cu atentie informatiile afisate. Pentru o configurare usoara, 
+va recomandam sa apasati Y la fiecare intrebare.Sunteti de acord sa incepem? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+sudo sensors
+echo -ne
+#Pasul 4 - setare hddtemp sa afiseze corect temperatura in conky
+echo -ne "Acum vom configura programul hddtemp sa citeasca temperaturile hardiscurilor dvs. Sunteti de acord? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+sudo chmod u+s /usr/sbin/hddtemp
+echo -ne
+#PAsul 5 - creare fisier configurare conky si copierea lui in /home
+echo -ne "Parametrii au fost configurati. Acum vom crea si instala in /home un fisier simplu pentru 
+afisarea datelor de catre conky. Sunteti de acord? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+cp ./.conkyrc ~/
+echo -ne
+echo -ne
+echo -ne "Fisierul a fost copiat. Vreti sa porniti conky? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+exit
+fi
+if [ $a = "y" ] ; then
+conky
+echo -ne
+echo -ne
+echo -ne "Conky afiseaza doar datele principale despre sistem pe monitorul dvs."
+echo -ne "Vreti sa opriti conky? Y/N"
+read a
+if [ $a = "n" ] ; then
+echo -e "Operatiune anulata. La revedere!"
+fi
+#exit
+if [ $a = "y" ] ; then
+pkill conky
+echo -ne
+echo -ne "Pentru o configurare avansata si pentru
+setarea conky sa porneasca odata cu PC-ul dvs. va rugam consultati forumul Ubuntu Romania la adresa
+<http://forum.ubuntu.ro/index.php>. Va multumim!"
+exit 0
