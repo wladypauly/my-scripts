@@ -1,0 +1,50 @@
+#!/bin/bash
+RASPUNS1=`zenity --question --title="PASUL 1" --text="Script actualizare Ubuntu. 
+Acest script executa o serie de actiuni ca root/administrator (cu drepturi depline asupra sistemului dvs.)
+<b><span color =\'red\'> NICIO INFORMATIE PERSONALA NU VA FI TRANSMISA NIMANUI!!</span></b> Vreti sa continuati?" echo $?`;
+# Check what the user pressed
+if [ $RASPUNS1 -eq 1 ]
+then
+    # 1 => pressed cancel
+     # 0 => pressed ok
+zenity --error --text="Actualizare intrerupta. La revedere!";exit
+else
+RASPUNS2=`zenity --question --title="PASUL 2" --text="OK. Urmeaza o serie de actiuni pe care trebuie sa le confirmati; 
+Mergeti mai departe?";echo $?`;
+if [ $RASPUNS2 -eq 1 ]
+then
+zenity --error --text="Actualizare intrerupta. La revedere!"; exit
+else
+RASPUNS3=`zenity --question --title="Actualizare liste" --text="Doriti actualizarea listei cu programe?";echo $?`;
+if [ $RASPUNS3 -eq 1 ]
+then
+zenity --error --text="Actualizare intrerupta. La revedere";exit
+else
+if zenity --question --title="Actualizare liste" --text="Actualizarea listelor de programe, precum si 
+celelalte operatiuni necesita introducerea parolei dvs. Introduceti parola?"; echo $?`;
+sudo -S apt-get update | zenity --progress --pulsate --auto-close --auto-kill --text="Actualizare in curs..."
+fi;
+fi;
+RASPUNS4=`zenity --question --title="Actualizare programe" --text="Actualizarea listei de programe s-a terminat. 
+Incepeti actualizarea propriu-zisa?" ; echo $?`;
+if [ $RASPUNS4 -eq 1 ]
+then
+zenity --error --text="Actualizare intrerupta. La revedere!"; exit
+else
+apt-get dist-upgrade
+fi;
+RASPUNS5=`zenity --question --title="Actualizare programe" --text="Actualizarea programelor s-a terminat.
+Vreti sa stergeti programele care nu mai sunt necesare?"; echo $?`;
+if [ $RASPUNS5 -eq 1 ]
+then
+zenity --info --text="Programele inutile nu au fost sterse. Operatiune terminata. La revedere!"; exit
+else
+apt-get autoremove
+fi;
+zenity --info --text="Actualizarea si stergerea programelor inutile au fost terminate cu succes. 
+La revedere!"; 
+fi;
+fi;
+fi;
+fi;
+exit
