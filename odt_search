@@ -1,0 +1,16 @@
+#This script is not mine, I just got it from here:
+#http://ubuntuforums.org/showthread.php?t=899179.
+#Thousands of thanks to those users on the Ubuntu forum.
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Usage: searchodt searchterm"
+	exit 1
+fi
+
+for file in $(ls *.odt); do
+	unzip -ca "$file" content.xml | grep -ql "$1"
+	if [ $? -eq 0 ]; then
+		echo "$file"
+	fi
+done
