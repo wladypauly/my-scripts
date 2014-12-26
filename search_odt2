@@ -1,0 +1,15 @@
+#THis is not mine. Source: http://ubuntuforums.org/showthread.php?t=899179&page=2
+#!/bin/bash
+ 
+if [ $# -ne 1 ]; then
+    echo "Usage: `basename $0` searchterm"
+    exit 1
+fi
+ 
+for file in $(ls *.odt); do
+    unzip -ca "$file" content.xml | grep -ql "$1"
+    if [ $? -eq 0 ]; then
+        echo "$file"
+    fi
+done
+
