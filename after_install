@@ -17,14 +17,16 @@ echo  "Operation aborted. See you! :)"
 exit
 fi
 if [ $a = "y" ] ; then
-echo "The universe and multiverse repositories will be enabled now"
-sudo add-apt-repository "deb http://main.archive.ubuntu.com/ubuntu/ trusty universe multiverse"
-sudo add-apt-repository "deb http://main.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse"
+#echo "The universe and multiverse repositories will be enabled now"
+#sudo add-apt-repository "deb http://main.archive.ubuntu.com/ubuntu/ trusty universe multiverse"
+#sudo add-apt-repository "deb http://main.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse"
 echo "Now some ppas will be added"
 sudo add-apt-repository -y ppa:linrunner/tlp #laptop tools
 sudo add-apt-repository -y ppa:venerix/pkg #tvmaxe ppa
 sudo add-apt-repository -y ppa:webupd8team/java #oracle-java ppa
-sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer #the name is self-explanatory
+sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp #gimp
+sudo add-apt-repository -y ppa:mc3man/trusty-media #ffmpeg
+#sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer #the name is self-explanatory
 sudo add-apt-repository -y ppa:unit193/inxi #utility to display hardware details in terminal
 sudo add-apt-repository -y ppa:tsbarnes/indicator-keylock #keyboard indicator for Caps Lock, Num Lock, Scroll Lock
 sudo add-apt-repository -y ppa:ffmulticonverter/stable #multimedia and document format converter
@@ -38,7 +40,7 @@ echo "Now the system will be updated. DO NOT restart the system after the update
 sudo apt-get dist-upgrade
 echo
 echo "Now some packages, some of them from the ppas, will be installed"
-sudo apt-get install tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpi-call-tools tv-maxe oracle-java8-installer grub-customizer inxi indicator-keylock indicator-keylock-icons ffmulticonverter aptik libreoffice gimp blender synaptic audacious audacity 
+sudo apt-get install gimp gmic tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpi-call-tools tv-maxe oracle-java8-installer inxi indicator-keylock ffmulticonverter aptik libreoffice blender synaptic audacious audacity 
 echo "Now the system will be cleaned of downloaded packages and then rebooted. MAKE SURE YOU CLOSE ALL APPLICATIONS AND SAVE ALL OF YOUR WORK BEFORE PROCEEDING!!"
 echo "DO YOU WISH TO CONTINUE?"
 read a
@@ -51,5 +53,5 @@ sudo apt-get clean && sudo apt-get autoclean
 echo "SYSTEM IS ABOUT TO BE RESTARTED!"
 sudo reboot
 fi
+fi
 exit 0
-
